@@ -16,11 +16,5 @@ with open('day3.txt', 'r') as f:
             s += upper_priori[character]
         else:
             s += lower_priori[character]
-        
-
-# print(x)
-# print(x1, x2)
-
-# print(list(set(x1).intersection(x2))[0])
-
+            
 print(s)
