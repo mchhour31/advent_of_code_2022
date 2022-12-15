@@ -13,11 +13,15 @@ with open('day4_input.txt', 'r') as f:
         z0 = [a for a in range(ls_f[0], ls_f[1]+1)] # generating lists from range t0 to t1
         z1 = [a for a in range(ls_s[0], ls_s[1]+1)]
         
-        if ((set(z0) & set(z1)) == set(z1)) or ((set(z0) & set(z1)) == set(z0)):
-            c += 1
+        # if ((set(z0) & set(z1)) == set(z1)) or ((set(z0) & set(z1)) == set(z0)):
+        #     c += 1
         
+        if (set(z0) & set(z1)):
+            c += 1
 
     print(c)
+    
+    
         # for a in range(ls_f[0], ls_f[1]):
         #     print([a])
 
