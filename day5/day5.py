@@ -2,69 +2,70 @@ def splitString(line, seps):
     ls = []
     
     s = line
+   
+    s = s.replace('move', ',').split(',')
+    s = s[1].replace('from', ',').split(',')
+    ls.append(int(s[0]))
     
+    s = s[1].replace('to', ',').split(',')
+    ls.append(int(s[0]))
+    
+    s = s[1].split('\n')
+    ls.append(int(s[0]))
+    
+    # print(ls)
     # seperating string at [move, from, to], and appending the numbers to new list
-    for sep in seps:
-        s = s.split(sep)[1] 
-        ls.append(int(s[1]))
+    # for sep in seps:
+    #     s = s.replace(sep, ',').split(',')
         
-        print(s)
+    #     print(s)
+    #     # ls.append(int(s[1]))
         
     return ls
 
+r = -1
 with open('day5_input.txt', 'r') as f:
-    x = []
-    t = []
-    s1, s2, s3 = [], [], []
-    
+    all = []
     for line in f:
-        t.append(line)
-        
-        if '[' in line:
-            x.append(line) 
+        all.append(line) # appending all lines into a list
     
-    print(t[9:])
-    
-    # # seperating string into indiviudal lists
-    # for i in x:
-    #     s1.append(i.split('\n')[0][:3])
-    #     s2.append(i.split('\n')[0][4:7])
-    #     s3.append(i.split('\n')[0][8:11])
-        
-    # s = [' '.join(s1).split(), ' '.join(s2).split(), ' '.join(s3).split()] # removing empty strings on lhs of characters
-    # # s = [s1, s2, s3]
-    
-    # # print(s)
-    # a = ""
-    
-    # for z in t[5:]:
-    #     ori_dest = splitString(z, ['move', 'from', 'to']) # list of [item, origin, destination] indexes
-    #     start = s[ori_dest[1]-1]
-    #     end = s[ori_dest[2]-1]
-        
-    #     print(ori_dest)
-    #     # while ('   ' in end):
-    #     #     end.remove('   ')
-        
-    #     # while ('   ' in start):
-    #     #     start.remove('   ')
-        
-        
-    #     for num_move in range(ori_dest[0]):
-    #         end.insert(0, start[0])    
-    #         start.remove(start[0])
+    for z in all:
+        if '1' in z and 'move' not in z:
+            stack_idx = all[all.index(z)] # selecting the line w stack index numbers
+            stack_elements = all[:all.index(z)] # selects the stack elements
+            movements = all[all.index(z)+2:] # selects the instructions section
             
-    #         # print(start, end)
-                
-    #     # print(s)
+    stack_of_words = [[] for _ in range(len(stack_idx.split()))] # array of lists of size = number of stacks
+
+    # appending stack elements to an array 
+    for k in range(len(stack_elements)):
+        for i in range(len(stack_idx.split())):
+            stack_of_words[i].append(stack_elements[k].split('\n')[0][i*4:i*4+3])
+
+    # removing white spaces, stack will be treated as left = top of stack
+    for ls in stack_of_words:	
+        while ('   ' in ls):
+            ls.remove('   ')
         
-                
-    #     #     
-            
-    #     #     print(end)
+    print(stack_of_words)
+    
+    # process the instructions to isolate integers ie. [num_selected, origin, destination]
+    for i in movements:
+        movements = splitString(i, ['move', 'from', 'to', '\n'])
         
-    #     # print(s)
-            
+        start = stack_of_words[movements[1]-1]
+        end = stack_of_words[movements[2]-1]
+        
+        for i in range(movements[0]):
+            end.insert(0, start[0]) # adding to the lhs of end array
+            start.remove(start[0]) # removing from the start array
+    
+    # joining every top element for every stack
+    final = ""
+    for top in stack_of_words:
+        final += top[0]
+    
+    print(final)
 
             
 
