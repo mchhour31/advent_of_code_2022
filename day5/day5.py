@@ -15,9 +15,6 @@ def splitString(line, seps):
 
     return ls
 
-def flatten(l):
-    return [item for sublist in l for item in sublist]
-
 r = -1
 with open('day5_input.txt', 'r') as f:
     all = []
@@ -51,15 +48,21 @@ with open('day5_input.txt', 'r') as f:
         start = stack_of_words[movements[1]-1]
         end = stack_of_words[movements[2]-1]
         
+        # print(start, end)
+        
         if movements[0] == 1:
-            for i in range(movements[0]):
+            for _ in range(movements[0]):
                 end.insert(0, start[0]) # adding to the lhs of end array
                 start.remove(start[0]) # removing from the start array
         else:
-            end.insert(0, start[:movements[0]]) # adding to the lhs of end array
-            end = flatten(end)
-            # start = list(set(start) - set(start[:movements[0]]))
-            print(end)
+            end[:0] = start[:movements[0]]
+            del start[:movements[0]]
+            
+            # for j in range(movements[0]-1, -1, -1):
+            #     end.insert(0, start[j]) # adding n amount to the lhs of end array
+            #     start.remove(start[j])
+
+        print(start, end)
     
     # joining every top element for every stack
     final = ""
