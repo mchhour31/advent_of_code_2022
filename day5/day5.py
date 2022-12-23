@@ -48,22 +48,16 @@ with open('day5_input.txt', 'r') as f:
         start = stack_of_words[movements[1]-1]
         end = stack_of_words[movements[2]-1]
         
-        # print(start, end)
-        
-        if movements[0] == 1:
+        if movements[0] == 1:    
+            ## part 1 -- moving every item one at a time from top of stack
             for _ in range(movements[0]):
                 end.insert(0, start[0]) # adding to the lhs of end array
                 start.remove(start[0]) # removing from the start array
         else:
+            # part 2 -- when n > 1, multiple items can be moved (and in order)
             end[:0] = start[:movements[0]]
             del start[:movements[0]]
-            
-            # for j in range(movements[0]-1, -1, -1):
-            #     end.insert(0, start[j]) # adding n amount to the lhs of end array
-            #     start.remove(start[j])
 
-        print(start, end)
-    
     # joining every top element for every stack
     final = ""
     for top in stack_of_words:
