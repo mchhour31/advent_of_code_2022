@@ -53,10 +53,16 @@ with open(filename) as f:
     print(cd_list)
     print(a_tmp)
     
-    for i, dir in enumerate(a_tmp):
-        for j in dir:
+    # for i, dir in enumerate(a_tmp):
+    #     for j in dir:
+    #         # print(a_tmp)
+    #         print(a_tmp[cd_list.index(j)])
+            # for x in a_tmp[cd_list.index(j)]:
+            #     # sls[i] += sls[cd_list.index(x)]
+            #     print(sls)            
             # sls[i] += sls[cd_list.index(j)]
-            print(sls[cd_list.index(j)])
+                
+            # print(sls[cd_list.index(j)])
             # print(j)
             
             # print(sls[i])
